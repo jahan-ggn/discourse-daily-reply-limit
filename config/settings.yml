@@ -1,4 +1,25 @@
-discourse_daily_reply_limit:
+plugins:
   discourse_daily_reply_limit_enabled:
     default: false
+    client: true
+  discourse_daily_reply_limit_max_replies:
+    default: 3
+    min: 1
+    max: 100
+    client: true
+  discourse_daily_reply_limit_exempt_groups:
+    type: group_list
+    list_type: compact
+    default: ""
+    allow_any: false
+    refresh: true
+    area: "group_permissions"
+  discourse_daily_reply_limit_error_message:
+    default: "You have reached your daily reply limit. %{info_link}"
+    client: true
+  discourse_daily_reply_limit_info_topic_url:
+    default: ""
+    client: true
+  discourse_daily_reply_limit_info_link_text:
+    default: "Learn more about upgrading"
     client: true
