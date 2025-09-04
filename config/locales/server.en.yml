@@ -3,6 +3,6 @@ en:
     discourse_daily_reply_limit_enabled: "Enable daily reply limit plugin"
     discourse_daily_reply_limit_max_replies: "Maximum number of allowed replies per day for users not in exempt groups"
     discourse_daily_reply_limit_exempt_groups: "Groups exempt from the daily reply limit"
-    discourse_daily_reply_limit_error_message: "Custom message. Use %{info_link} to insert the link to the configured information topic."
+    discourse_daily_reply_limit_error_message: "Custom message. Use %%{info_link} to insert the link to the configured information topic."
     discourse_daily_reply_limit_info_topic_url: "Topic URL to redirect users to when they reach the reply limit."
     discourse_daily_reply_limit_info_link_text: "Text to display for the link to the information topic URL."
