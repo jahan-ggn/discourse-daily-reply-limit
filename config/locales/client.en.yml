@@ -3,7 +3,7 @@ en:
     admin:
       site_settings:
         categories:
-          TODO_plugin_name: "Plugin Name"
+          discourse_daily_reply_limit: "Discourse Daily Reply Limit"
   js:
-    discourse_plugin_name:
+    discourse_daily_reply_limit:
       placeholder: placeholder

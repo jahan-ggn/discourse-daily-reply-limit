@@ -1,4 +1,4 @@
-# **Plugin Name** Plugin
+# **Discourse Daily Reply Limit** Plugin
 
 **Plugin Summary**
 
