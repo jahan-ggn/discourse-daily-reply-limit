@@ -36,10 +36,17 @@ after_initialize do
       
       max_replies = SiteSetting.discourse_daily_reply_limit_max_replies
 
+      timezone_name = @user.user_option&.timezone.presence
+      timezone = ActiveSupport::TimeZone[timezone_name] if timezone_name
+      timezone ||= Time.zone || ActiveSupport::TimeZone["UTC"]
+
+      start_of_day = timezone.now.beginning_of_day
+      end_of_day   = timezone.now.end_of_day
+
       replies_today = Post.where(
         user_id: @user.id,
         post_type: Post.types[:regular],
-        created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day
+        created_at: start_of_day..end_of_day
       ).count
 
       if replies_today >= max_replies
