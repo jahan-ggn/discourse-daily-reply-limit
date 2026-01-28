@@ -24,7 +24,7 @@ after_initialize do
 
     def custom_reply_limit_valid?
       return true unless SiteSetting.discourse_daily_reply_limit_enabled
-
+      return true if @opts && @opts[:reviewed_queued_post]
       return true if @user.admin? || @user.staff?
 
       exempt_group_ids = SiteSetting.discourse_daily_reply_limit_exempt_groups
