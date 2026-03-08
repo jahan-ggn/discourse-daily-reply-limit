@@ -28,13 +28,11 @@ after_initialize do
       return true if @user.admin? || @user.staff?
       return true if @opts[:topic_id].blank?
 
-      exempt_group_ids = SiteSetting.discourse_daily_reply_limit_exempt_groups
-        .split("|")
-        .map(&:to_i)
-        .reject(&:zero?)
-      
+      exempt_group_ids =
+        SiteSetting.discourse_daily_reply_limit_exempt_groups.split("|").map(&:to_i).reject(&:zero?)
+
       return true if exempt_group_ids.any? && (@user.group_ids & exempt_group_ids).any?
-      
+
       max_replies = SiteSetting.discourse_daily_reply_limit_max_replies
 
       timezone_name = @user.user_option&.timezone.presence
@@ -42,13 +40,17 @@ after_initialize do
       timezone ||= Time.zone || ActiveSupport::TimeZone["UTC"]
 
       start_of_day = timezone.now.beginning_of_day
-      end_of_day   = timezone.now.end_of_day
+      end_of_day = timezone.now.end_of_day
 
-      replies_today = Post.where(
-        user_id: @user.id,
-        post_type: Post.types[:regular],
-        created_at: start_of_day..end_of_day
-      ).where("post_number > 1").count
+      replies_today =
+        Post
+          .where(
+            user_id: @user.id,
+            post_type: Post.types[:regular],
+            created_at: start_of_day..end_of_day,
+          )
+          .where("post_number > 1")
+          .count
 
       if replies_today >= max_replies
         info_link = ""

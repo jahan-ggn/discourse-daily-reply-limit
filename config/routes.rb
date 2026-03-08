@@ -5,4 +5,6 @@ DiscourseDailyReplyLimit::Engine.routes.draw do
   # define routes here
 end
 
-Discourse::Application.routes.draw { mount ::DiscourseDailyReplyLimit::Engine, at: "discourse-daily-reply-limit" }
+Discourse::Application.routes.draw do
+  mount ::DiscourseDailyReplyLimit::Engine, at: "discourse-daily-reply-limit"
+end
