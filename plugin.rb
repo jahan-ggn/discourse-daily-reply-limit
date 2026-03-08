@@ -26,6 +26,7 @@ after_initialize do
       return true unless SiteSetting.discourse_daily_reply_limit_enabled
       return true if @opts && @opts[:reviewed_queued_post]
       return true if @user.admin? || @user.staff?
+      return true if @opts[:topic_id].blank?
 
       exempt_group_ids = SiteSetting.discourse_daily_reply_limit_exempt_groups
         .split("|")
@@ -47,7 +48,7 @@ after_initialize do
         user_id: @user.id,
         post_type: Post.types[:regular],
         created_at: start_of_day..end_of_day
-      ).count
+      ).where("post_number > 1").count
 
       if replies_today >= max_replies
         info_link = ""
